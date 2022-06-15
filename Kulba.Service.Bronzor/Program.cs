@@ -36,10 +36,16 @@ namespace Kulba.Service.Bronzor
                         x.AddSagas(entryAssembly);
                         x.AddActivities(entryAssembly);
 
-                        x.UsingInMemory((context, cfg) =>
+                        x.UsingAzureServiceBus((context, cfg) =>
                         {
+                            cfg.Host("Endpoint=sb://orchestrator-315.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=Jhyud373CLgEf5rubPurGqcbIayCaghlr6ImL6CiT38=");
                             cfg.ConfigureEndpoints(context);
                         });
+
+                        // x.UsingInMemory((context, cfg) =>
+                        // {
+                        //     cfg.ConfigureEndpoints(context);
+                        // });
                     });
                     services.AddHostedService<BronzorClientWorker>();
                 });
